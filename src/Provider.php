@@ -8,9 +8,7 @@ use Laravel\Socialite\Two\User;
 class Provider extends AbstractProvider implements ProviderInterface
 {
     /**
-     * The scopes being requested.
-     *
-     * @var array
+     * {@inheritdoc}
      */
     protected $scopes = ['basic_access', 'email'];
 
@@ -36,7 +34,7 @@ class Provider extends AbstractProvider implements ProviderInterface
     protected function getUserByToken($token)
     {
         $response = $this->getHttpClient()->get('https://api.deezer.com/user/me?access_token='.$token);
-// http://api.deezer.com/2.0/user/me
+
         return json_decode($response->getBody(), true);
     }
 
@@ -57,17 +55,15 @@ class Provider extends AbstractProvider implements ProviderInterface
     /**
      * {@inheritdoc}
      */
-    protected function buildAuthUrlFromBase($url, $state)
+    protected function getCodeFields($state)
     {
-        $session = $this->request->getSession();
-
-        return $url.'?'.http_build_query([
+        return [
             'app_id'        => $this->clientId,
             'redirect_uri'  => $this->redirectUrl,
-            'perms'         => $this->formatScopes($this->scopes, $this->scopeSeparator),
+            'scope'         => $this->formatScopes($this->scopes, $this->scopeSeparator),
             'state'         => $state,
             'response_type' => 'code',
-        ], '', '&', $this->encodingType);
+        ];
     }
 
     /**
