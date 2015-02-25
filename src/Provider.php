@@ -17,7 +17,9 @@ class Provider extends AbstractProvider implements ProviderInterface
      */
     protected function getAuthUrl($state)
     {
-        return $this->buildAuthUrlFromBase('https://connect.deezer.com/oauth/auth.php', $state);
+        return $this->buildAuthUrlFromBase(
+            'https://connect.deezer.com/oauth/auth.php', $state
+        );
     }
 
     /**
@@ -33,7 +35,9 @@ class Provider extends AbstractProvider implements ProviderInterface
      */
     protected function getUserByToken($token)
     {
-        $response = $this->getHttpClient()->get('https://api.deezer.com/user/me?access_token='.$token);
+        $response = $this->getHttpClient()->get(
+            'https://api.deezer.com/user/me?access_token='.$token
+        );
 
         return json_decode($response->getBody(), true);
     }
@@ -44,11 +48,9 @@ class Provider extends AbstractProvider implements ProviderInterface
     protected function mapUserToObject(array $user)
     {
         return (new User())->setRaw($user)->map([
-            'id'       => $user['id'],
-            'nickname' => $user['name'],
-            'name'     => $user['firstname'].' '.$user['lastname'],
-            'email'    => $user['email'],
-            'avatar'   => $user['picture'],
+            'id' => $user['id'], 'nickname' => $user['name'],
+            'name' => $user['firstname'].' '.$user['lastname'],
+            'email' => $user['email'], 'avatar' => $user['picture'],
         ]);
     }
 
@@ -58,11 +60,9 @@ class Provider extends AbstractProvider implements ProviderInterface
     protected function getCodeFields($state)
     {
         return [
-            'app_id'        => $this->clientId,
-            'redirect_uri'  => $this->redirectUrl,
-            'scope'         => $this->formatScopes($this->scopes, $this->scopeSeparator),
-            'state'         => $state,
-            'response_type' => 'code',
+            'app_id' => $this->clientId, 'redirect_uri' => $this->redirectUrl,
+            'scope' => $this->formatScopes($this->scopes, $this->scopeSeparator),
+            'state' => $state, 'response_type' => 'code',
         ];
     }
 
