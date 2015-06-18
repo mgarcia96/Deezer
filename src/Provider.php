@@ -1,4 +1,5 @@
 <?php
+
 namespace SocialiteProviders\Deezer;
 
 use Laravel\Socialite\Two\AbstractProvider;
@@ -39,7 +40,7 @@ class Provider extends AbstractProvider implements ProviderInterface
             'https://api.deezer.com/user/me?access_token='.$token
         );
 
-        return json_decode($response->getBody(), true);
+        return json_decode($response->getBody()->getContents(), true);
     }
 
     /**
@@ -88,7 +89,7 @@ class Provider extends AbstractProvider implements ProviderInterface
         return [
             'app_id' => $this->clientId,
             'secret' => $this->clientSecret,
-            'code'   => $code,
+            'code' => $code,
         ];
     }
 

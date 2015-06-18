@@ -1,4 +1,5 @@
 <?php
+
 namespace SocialiteProviders\Deezer;
 
 use SocialiteProviders\Manager\SocialiteWasCalled;
