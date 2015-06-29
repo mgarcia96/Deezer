@@ -58,7 +58,7 @@ class Provider extends AbstractProvider implements ProviderInterface
     /**
      * {@inheritdoc}
      */
-    protected function getCodeFields($state)
+    protected function getCodeFields($state = null)
     {
         return [
             'app_id' => $this->clientId, 'redirect_uri' => $this->redirectUrl,
