@@ -1,5 +1,5 @@
 {
-    "name": "socialiteproviders/deezer",
+    "name": "magarrent/deezer-laravel-auth",
     "description": "Deezer OAuth2 Provider for Laravel Socialite",
     "license": "MIT",
     "authors": [
